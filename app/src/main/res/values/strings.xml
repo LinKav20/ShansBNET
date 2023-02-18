@@ -5,4 +5,5 @@
     <string name="title_text">Title text</string>
     <string name="decs_text">Description text</string>
     <string name="where_to_buy">Where to buy?</string>
+    <string name="search_menu">Search</string>
 </resources>
