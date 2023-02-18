@@ -1,7 +1,9 @@
 package com.github.linkav20.bnets.ui.category
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.linkav20.bnets.models.Product
@@ -18,20 +20,25 @@ class CategoryViewModel @Inject constructor(
     private val _data = MutableLiveData<List<Product>>()
     val data: LiveData<List<Product>> = _data
 
+    var searchQuery = MutableLiveData("")
 
     init {
-        viewModelScope.launch {
-            _data.postValue(getLoaders())
-            val items = getCategories()
-            _data.postValue(items)
+        _data.postValue(getLoaders())
+
+        searchQuery.observeForever {
+            viewModelScope.launch {
+                val items = getCategories(it)
+                _data.postValue(items)
+            }
         }
+
     }
 
     private fun getLoaders() = IntRange(1, 6).map { ProductProgress }
 
-    private suspend fun getCategories(): List<Product> {
+    private suspend fun getCategories(query: String): List<Product> {
         val cats = mutableListOf<Product>()
-        val response = api.getAllProducts()
+        val response = api.getAllProducts(query)
         cats.addAll(response.map {
             ProductImpl(
                 id = it.id,
@@ -42,4 +49,5 @@ class CategoryViewModel @Inject constructor(
         })
         return cats
     }
+
 }

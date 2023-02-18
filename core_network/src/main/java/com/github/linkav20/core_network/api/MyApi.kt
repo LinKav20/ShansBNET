@@ -10,5 +10,5 @@ interface MyApi {
     suspend fun getProduct(@Query("id") id: Int) : ProductDTO
 
     @GET("/api/ppp/index")
-    suspend fun getAllProducts(): List<ProductDTO>
+    suspend fun getAllProducts(@Query("search") search: String): List<ProductDTO>
 }

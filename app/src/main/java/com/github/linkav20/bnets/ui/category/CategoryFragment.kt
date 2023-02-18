@@ -1,14 +1,17 @@
 package com.github.linkav20.bnets.ui.category
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.github.linkav20.bnets.R
 import com.github.linkav20.bnets.databinding.FragmentCategoryBinding
+import com.github.linkav20.bnets.utils.onQueryTextChanged
 
 class CategoryFragment : Fragment() {
 
@@ -32,6 +35,8 @@ class CategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setMenu()
+
         val actionBar = (activity as AppCompatActivity?)!!.supportActionBar
         actionBar?.title = ""
 
@@ -41,6 +46,33 @@ class CategoryFragment : Fragment() {
                 adapter.items = it
             })
         }
+    }
+
+    private fun setMenu() {
+        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menu.clear()
+                activity?.menuInflater?.inflate(R.menu.menu, menu)
+
+                val searchItem = menu.findItem(R.id.action_search)
+                val searchView = searchItem.actionView as SearchView
+
+                searchView.onQueryTextChanged {
+                    viewModel.searchQuery.postValue(it)
+                }
+
+                searchView.setOnQueryTextFocusChangeListener { _, newFocus ->
+                    if(!newFocus) {
+                        searchItem.collapseActionView();
+                        viewModel.searchQuery.postValue("")
+                    }
+                }
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return false
+            }
+        }, viewLifecycleOwner)
     }
 
 }
