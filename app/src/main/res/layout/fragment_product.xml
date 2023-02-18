@@ -1,13 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.product.ProductFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/poster_imageview"
+        android:layout_width="260dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_margin="12dp" />
+
+    <TextView
+        android:id="@+id/title_text"
+        style="@style/TitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:text="@string/title_text"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/desc_text"
+        style="@style/BaseText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/decs_text"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/where_buy_button"
+        style="@style/TitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:backgroundTint="@color/white"
+        app:iconGravity="textStart"
+        app:icon="@drawable/ic_baseline_location_on_24"
+        app:iconTint="@color/green_200"
+        android:text="@string/where_to_buy"
+        android:textSize="12sp" />
+
+</LinearLayout>

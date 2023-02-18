@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.linkav20.bnets.models.Category
+import com.github.linkav20.bnets.models.CategoryImpl
 import com.github.linkav20.bnets.models.CategoryProgress
 import kotlinx.coroutines.launch
 
@@ -17,8 +18,8 @@ class CategoryViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             _data.postValue(getLoaders())
-            //val items = getCategories()
-            //_data.postValue(items)
+            val items = getCategories()
+            _data.postValue(items)
         }
     }
 
@@ -26,6 +27,7 @@ class CategoryViewModel : ViewModel() {
 
     private suspend fun getCategories() : List<Category>{
         val cats = mutableListOf<Category>()
+        cats.add(CategoryImpl(1,"lol","lol","lol"))
         return cats
     }
 }
