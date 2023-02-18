@@ -25,9 +25,7 @@ class ProductViewModel @Inject constructor(
     }
 
     private suspend fun getProduct(id: Int): ProductImpl {
-        Log.d("MY", "hi")
         val response = api.getProduct(id)
-        Log.d("MY", response.toString())
 
         return ProductImpl(
             id = response.id,

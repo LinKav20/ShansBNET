@@ -40,12 +40,20 @@ class ProductFragment : Fragment() {
         val actionBar = (activity as AppCompatActivity?)!!.supportActionBar
         actionBar?.title = ""
 
+       progressProduct()
+
         val id = arguments?.getInt("product_id")
         if (id == null) {
             toastError()
         } else {
             init(id)
         }
+    }
+
+    private fun progressProduct(){
+        binding.titleText.text = ""
+        binding.descText.text = ""
+        binding.whereBuyButton.visibility = View.GONE
     }
 
     private fun init(id: Int) {
@@ -60,6 +68,7 @@ class ProductFragment : Fragment() {
 
             binding.titleText.text = it.title
             binding.descText.text = it.desc
+            binding.whereBuyButton.visibility = View.VISIBLE
         })
     }
 
