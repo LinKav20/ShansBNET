@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">bnets</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category_image">Category image</string>
+    <string name="title_text">Title text</string>
+    <string name="decs_text">Description text</string>
+</resources>
