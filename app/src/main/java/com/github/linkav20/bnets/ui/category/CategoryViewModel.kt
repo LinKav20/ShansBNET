@@ -4,19 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.linkav20.bnets.models.Category
-import com.github.linkav20.bnets.models.CategoryImpl
-import com.github.linkav20.bnets.models.CategoryProgress
+import com.github.linkav20.bnets.models.Product
+import com.github.linkav20.bnets.models.ProductImpl
+import com.github.linkav20.bnets.models.ProductProgress
 import com.github.linkav20.core_network.api.MyApi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CategoryViewModel @Inject constructor(
     private val api: MyApi
-)  : ViewModel() {
+) : ViewModel() {
 
-    private val _data = MutableLiveData<List<Category>>()
-    val data: LiveData<List<Category>> = _data
+    private val _data = MutableLiveData<List<Product>>()
+    val data: LiveData<List<Product>> = _data
 
 
     init {
@@ -27,11 +27,19 @@ class CategoryViewModel @Inject constructor(
         }
     }
 
-    private fun getLoaders()= IntRange(1, 6).map { CategoryProgress }
+    private fun getLoaders() = IntRange(1, 6).map { ProductProgress }
 
-    private suspend fun getCategories() : List<Category>{
-        val cats = mutableListOf<Category>()
-        cats.add(CategoryImpl(1,"lol","lol","lol"))
+    private suspend fun getCategories(): List<Product> {
+        val cats = mutableListOf<Product>()
+        val response = api.getAllProducts()
+        cats.addAll(response.map {
+            ProductImpl(
+                id = it.id,
+                image = "http://shans.d2.i-partner.ru" + it.image,
+                title = it.name,
+                desc = it.description
+            )
+        })
         return cats
     }
 }

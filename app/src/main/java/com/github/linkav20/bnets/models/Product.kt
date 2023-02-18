@@ -1,5 +1,5 @@
 package com.github.linkav20.bnets.models
 
-interface Category {
+interface Product {
     val id: Int
 }
