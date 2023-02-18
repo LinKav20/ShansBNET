@@ -7,14 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import com.github.linkav20.bnets.R
 import com.github.linkav20.bnets.databinding.FragmentCategoryBinding
 
 class CategoryFragment : Fragment() {
 
+    private val component by lazy {
+        CategoryComponent.create()
+    }
+
     private lateinit var binding: FragmentCategoryBinding
-    private val viewModel: CategoryViewModel by viewModels()
+    private val viewModel by viewModels<CategoryViewModel> { component.viewModelFactory() }
 
     private val adapter = CategoryAdapter(this)
 

@@ -7,9 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.github.linkav20.bnets.models.Category
 import com.github.linkav20.bnets.models.CategoryImpl
 import com.github.linkav20.bnets.models.CategoryProgress
+import com.github.linkav20.core_network.api.MyApi
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CategoryViewModel : ViewModel() {
+class CategoryViewModel @Inject constructor(
+    private val api: MyApi
+)  : ViewModel() {
 
     private val _data = MutableLiveData<List<Category>>()
     val data: LiveData<List<Category>> = _data
