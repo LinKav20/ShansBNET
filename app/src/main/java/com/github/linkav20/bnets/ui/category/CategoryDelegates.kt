@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.github.linkav20.bnets.databinding.ProductCardBinding
-import com.github.linkav20.bnets.databinding.ProductCardProgressBinding
+import com.github.linkav20.bnets.databinding.ShimmerProductCardBinding
 import com.github.linkav20.bnets.models.Product
 import com.github.linkav20.bnets.models.ProductImpl
 import com.github.linkav20.bnets.models.ProductProgress
@@ -42,7 +42,7 @@ object CategoryDelegates {
     }
 
     fun progressCategoryItemDelegate() =
-        adapterDelegateViewBinding<ProductProgress, Product, ProductCardProgressBinding>(
-            { inflater, container -> ProductCardProgressBinding.inflate(inflater, container, false) }
+        adapterDelegateViewBinding<ProductProgress, Product, ShimmerProductCardBinding>(
+            { inflater, container -> ShimmerProductCardBinding.inflate(inflater, container, false) }
         ) {}
 }

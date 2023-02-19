@@ -38,15 +38,19 @@ class CategoryViewModel @Inject constructor(
 
     private suspend fun getCategories(query: String): List<Product> {
         val cats = mutableListOf<Product>()
-        val response = api.getAllProducts(query)
-        cats.addAll(response.map {
-            ProductImpl(
-                id = it.id,
-                image = "http://shans.d2.i-partner.ru" + it.image,
-                title = it.name,
-                desc = it.description
-            )
-        })
+        try {
+            val response = api.getAllProducts(query)
+            cats.addAll(response.map {
+                ProductImpl(
+                    id = it.id,
+                    image = "http://shans.d2.i-partner.ru" + it.image,
+                    title = it.name,
+                    desc = it.description
+                )
+            })
+        } catch (e: Exception) {
+
+        }
         return cats
     }
 

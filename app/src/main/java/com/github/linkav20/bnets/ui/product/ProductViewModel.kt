@@ -25,13 +25,17 @@ class ProductViewModel @Inject constructor(
     }
 
     private suspend fun getProduct(id: Int): ProductImpl {
-        val response = api.getProduct(id)
+        try {
+            val response = api.getProduct(id)
 
-        return ProductImpl(
-            id = response.id,
-            image = "http://shans.d2.i-partner.ru" + response.image,
-            title = response.name,
-            desc = response.description
-        )
+            return ProductImpl(
+                id = response.id,
+                image = "http://shans.d2.i-partner.ru" + response.image,
+                title = response.name,
+                desc = response.description
+            )
+        } catch (e: Exception) {
+
+        }
     }
 }
