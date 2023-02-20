@@ -11,7 +11,8 @@ class App : Application() {
     }
 
     private fun initDI() {
-        DI.appComponent = DaggerAppComponent.builder().appContext(this).build()
+        DI.appComponent =
+            DaggerAppComponent.builder().appContext(this).build()
         DI.networkComponent = DaggerNetworkComponent.create()
     }
 }

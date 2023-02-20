@@ -6,4 +6,9 @@
     <string name="decs_text">Description text</string>
     <string name="where_to_buy">Where to buy?</string>
     <string name="search_menu">Search</string>
+    <string name="loading_failure">An error occurred while downloading data from the network</string>
+    <string name="disconnect_internet">No internet connection</string>
+    <string name="retry">Retry</string>
+    <string name="cannot_load_product">An error occurred while downloading the product</string>
+    <string name="smth_goes_wrong">Something goes wrong!</string>
 </resources>

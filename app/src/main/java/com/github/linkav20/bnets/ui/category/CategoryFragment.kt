@@ -2,16 +2,17 @@ package com.github.linkav20.bnets.ui.category
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.github.linkav20.bnets.R
 import com.github.linkav20.bnets.databinding.FragmentCategoryBinding
 import com.github.linkav20.bnets.utils.onQueryTextChanged
+import com.google.android.material.snackbar.Snackbar
 
 class CategoryFragment : Fragment() {
 
@@ -23,6 +24,8 @@ class CategoryFragment : Fragment() {
     private val viewModel by viewModels<CategoryViewModel> { component.viewModelFactory() }
 
     private val adapter = CategoryAdapter(this)
+
+    private var searchQuery = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +45,19 @@ class CategoryFragment : Fragment() {
 
         with(binding) {
             recyclerView.adapter = adapter
-            viewModel.data.observe(viewLifecycleOwner, Observer {
+            viewModel.data.observe(viewLifecycleOwner) {
                 adapter.items = it
-            })
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+            if (error != null) {
+                snackBarRetry(error)
+            }
         }
     }
 
@@ -58,13 +71,15 @@ class CategoryFragment : Fragment() {
                 val searchView = searchItem.actionView as SearchView
 
                 searchView.onQueryTextChanged {
-                    viewModel.searchQuery.postValue(it)
+                    searchQuery = it
+                    viewModel.search(it)
                 }
 
                 searchView.setOnQueryTextFocusChangeListener { _, newFocus ->
-                    if(!newFocus) {
+                    if (!newFocus) {
                         searchItem.collapseActionView();
-                        viewModel.searchQuery.postValue("")
+                        searchQuery = ""
+                        viewModel.search("")
                     }
                 }
             }
@@ -75,4 +90,10 @@ class CategoryFragment : Fragment() {
         }, viewLifecycleOwner)
     }
 
+    private fun snackBarRetry(message: Int) {
+        Snackbar.make(binding.categoriesLayout, message, Snackbar.LENGTH_INDEFINITE)
+            .setAction(R.string.retry) {
+                viewModel.search(searchQuery)
+            }.show()
+    }
 }

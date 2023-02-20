@@ -5,6 +5,7 @@ import com.github.linkav20.bnets.DI
 import com.github.linkav20.bnets.di.ScreenScope
 import com.github.linkav20.bnets.di.ViewModelFactory
 import com.github.linkav20.bnets.di.ViewModelKey
+import com.github.linkav20.bnets.services.InternetNetworkInformant
 import com.github.linkav20.core_network.api.MyApi
 import dagger.Binds
 import dagger.BindsInstance
@@ -22,12 +23,17 @@ interface ProductComponent {
         @BindsInstance
         fun api(api: MyApi): Builder
 
+        @BindsInstance
+        fun internetConnectivityObserver(internetNetworkInformant: InternetNetworkInformant): Builder
+
         fun build(): ProductComponent
     }
 
     companion object{
         fun create() = with(DI.appComponent){
-            DaggerProductComponent.builder().api(DI.networkComponent.api()).build()
+            DaggerProductComponent.builder()
+                .internetConnectivityObserver(DI.appComponent.internetConnectivityObserver())
+                .api(DI.networkComponent.api()).build()
         }
     }
 }

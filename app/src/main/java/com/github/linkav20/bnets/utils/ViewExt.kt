@@ -10,6 +10,7 @@ inline fun SearchView.onQueryTextChanged(crossinline listener: (String) -> Unit)
         }
 
         override fun onQueryTextChange(newText: String?): Boolean {
+            listener(newText.orEmpty())
             return true
         }
     })
