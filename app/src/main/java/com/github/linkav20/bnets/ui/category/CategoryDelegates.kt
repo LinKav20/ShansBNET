@@ -13,36 +13,42 @@ import com.github.linkav20.bnets.models.ProductProgress
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 object CategoryDelegates {
-    fun categoryItemDelegate(fragment: CategoryFragment) = adapterDelegateViewBinding<ProductImpl, Product, ProductCardBinding>(
-        { inflater, container -> ProductCardBinding.inflate(inflater, container, false) }
-    ) {
-        bind {
-            Glide.with(binding.root)
-                .load(item.image)
-                .centerCrop()
-                .transform(RoundedCorners(8))
-                .transition(withCrossFade())
-                .into(binding.posterImageview)
+    fun categoryItemDelegate(fragment: CategoryFragment) =
+        adapterDelegateViewBinding<ProductImpl, Product, ProductCardBinding>(
+            { inflater, container -> ProductCardBinding.inflate(inflater, container, false) }
+        ) {
+            bind {
+                Glide.with(binding.root)
+                    .load(item.image)
+                    .centerCrop()
+                    .transform(RoundedCorners(8))
+                    .transition(withCrossFade())
+                    .into(binding.posterImageview)
 
-            binding.titleText.text = item.title
+                binding.titleText.text = item.title
 
-            binding.descText.text = item.desc
+                binding.descText.text = item.desc
 
-            binding.productItem.setOnClickListener{
-                val action = CategoryFragmentDirections.actionCategoryFragmentToProductFragment(item.id)
-                fragment.findNavController().navigate(action)
+                binding.productItem.setOnClickListener {
+                    val action =
+                        CategoryFragmentDirections.actionCategoryFragmentToProductFragment(item.id)
+                    fragment.findNavController().navigate(action)
+                }
+            }
+
+            onViewRecycled {
+                if ((binding.root.context as? Activity)?.isDestroyed?.not() == true) {
+                    Glide.with(binding.root).clear(binding.posterImageview)
+                }
             }
         }
-
-        onViewRecycled {
-            if ((binding.root.context as? Activity)?.isDestroyed?.not() == true) {
-                Glide.with(binding.root).clear(binding.posterImageview)
-            }
-        }
-    }
 
     fun progressCategoryItemDelegate() =
         adapterDelegateViewBinding<ProductProgress, Product, ShimmerProductCardBinding>(
             { inflater, container -> ShimmerProductCardBinding.inflate(inflater, container, false) }
-        ) {}
+        ) {
+            bind {
+                binding.shimmerLayout.startShimmer()
+            }
+        }
 }

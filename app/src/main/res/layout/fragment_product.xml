@@ -1,53 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/product_layout"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/product_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.product.ProductFragment">
 
-
-    <ImageView
-        android:id="@+id/poster_imageview"
-        android:layout_width="260dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_margin="30dp" />
-
-    <TextView
-        android:id="@+id/title_text"
-        style="@style/TitleText"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="14dp"
-        android:text="@string/title_text"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/desc_text"
-        style="@style/BaseText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/decs_text"
-        android:textSize="15sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/where_buy_button"
-        style="@style/TitleText"
+            <View
+                android:layout_width="260dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_margin="30dp"
+                android:background="@drawable/bg_placeholder" />
+
+            <View
+                android:layout_width="160dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/bg_placeholder" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_margin="14dp"
+                android:background="@drawable/bg_placeholder" />
+
+            <View
+                android:layout_width="300dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/bg_placeholder" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_margin="14dp"
+                android:background="@drawable/bg_placeholder" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <LinearLayout
+        android:id="@+id/product_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="14dp"
-        android:backgroundTint="@color/white"
-        app:iconGravity="textStart"
-        app:icon="@drawable/ic_baseline_location_on_24"
-        app:iconTint="@color/green_200"
-        android:text="@string/where_to_buy"
-        android:textSize="12sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/poster_imageview"
+            android:layout_width="260dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_margin="30dp" />
+
+        <TextView
+            android:id="@+id/title_text"
+            style="@style/TitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:text="@string/title_text"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/desc_text"
+            style="@style/BaseText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/decs_text"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/where_buy_button"
+            style="@style/TitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="14dp"
+            android:backgroundTint="@color/white"
+            android:text="@string/where_to_buy"
+            android:textSize="12sp"
+            app:icon="@drawable/ic_baseline_location_on_24"
+            app:iconGravity="textStart"
+            app:iconTint="@color/green_200" />
+    </LinearLayout>
 
 </LinearLayout>

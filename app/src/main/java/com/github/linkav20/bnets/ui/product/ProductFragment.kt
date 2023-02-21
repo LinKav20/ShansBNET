@@ -1,6 +1,7 @@
 package com.github.linkav20.bnets.ui.product
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +46,6 @@ class ProductFragment : Fragment() {
         actionBar?.title = ""
 
         loadArgs()
-        loadProduct()
     }
 
     private fun loadArgs(){
@@ -58,9 +58,9 @@ class ProductFragment : Fragment() {
     }
 
     private fun progressProduct() {
-        binding.titleText.text = ""
-        binding.descText.text = ""
-        binding.whereBuyButton.visibility = View.GONE
+        binding.productContent.visibility = View.GONE
+        binding.shimmerLayout.visibility = View.VISIBLE
+        binding.shimmerLayout.startShimmer()
     }
 
     override fun onStart() {
@@ -70,11 +70,11 @@ class ProductFragment : Fragment() {
                 snackBarRetry(error)
             }
         }
+        loadProduct()
     }
 
     private fun loadProduct() {
         progressProduct()
-
         viewModel.loadProduct(productId)
 
         viewModel.product.observe(viewLifecycleOwner, Observer {
@@ -88,7 +88,9 @@ class ProductFragment : Fragment() {
 
                 binding.titleText.text = it.title
                 binding.descText.text = it.desc
-                binding.whereBuyButton.visibility = View.VISIBLE
+                binding.shimmerLayout.stopShimmer()
+                binding.shimmerLayout.visibility = View.GONE
+                binding.productContent.visibility = View.VISIBLE
             }
         })
     }

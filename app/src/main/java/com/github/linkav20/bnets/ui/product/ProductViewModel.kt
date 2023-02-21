@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.linkav20.bnets.BuildConfig
 import com.github.linkav20.bnets.R
 import com.github.linkav20.bnets.models.ProductImpl
 import com.github.linkav20.bnets.services.InternetNetworkInformant
@@ -50,7 +51,7 @@ class ProductViewModel @Inject constructor(
 
             return ProductImpl(
                 id = response.id,
-                image = "http://shans.d2.i-partner.ru" + response.image,
+                image = "http://shans.d2.i-partner.ru/" + response.image,
                 title = response.name,
                 desc = response.description
             )

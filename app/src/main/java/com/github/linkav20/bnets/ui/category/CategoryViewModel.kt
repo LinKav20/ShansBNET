@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.linkav20.bnets.BuildConfig
 import com.github.linkav20.bnets.R
 import com.github.linkav20.bnets.models.Product
 import com.github.linkav20.bnets.models.ProductImpl
@@ -62,7 +63,7 @@ class CategoryViewModel @Inject constructor(
             cats.addAll(response.map {
                 ProductImpl(
                     id = it.id,
-                    image = "http://shans.d2.i-partner.ru" + it.image,
+                    image = "http://shans.d2.i-partner.ru/" + it.image,
                     title = it.name,
                     desc = it.description
                 )
